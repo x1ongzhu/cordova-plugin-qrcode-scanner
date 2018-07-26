@@ -1,2 +1,52 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova-plugin-qrcode-scanner" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android"><name>qrCodeScanner</name><js-module name="qrCodeScanner" src="www/qrCodeScanner.js"><clobbers target="cordova.plugins.qrCodeScanner" /></js-module><platform name="android"><config-file parent="/*" target="res/xml/config.xml"><feature name="qrCodeScanner"><param name="android-package" value="cordova-plugin-qrcode-scanner.qrCodeScanner" /></feature></config-file><config-file parent="/*" target="AndroidManifest.xml"></config-file><source-file src="src/android/qrCodeScanner.java" target-dir="src/cordova-plugin-qrcode-scanner/qrCodeScanner" /></platform></plugin>
+<plugin id="cordova-plugin-qrcode-scanner" version="1.0.0" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>qrCodeScanner</name>
+    <js-module name="qrCodeScanner" src="www/qrCodeScanner.js">
+        <clobbers target="qrCodeScanner" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="qrCodeScanner">
+                <param name="android-package" value="cn.x1ongzhu.qrCodeScanner.qrCodeScanner" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.FLASHLIGHT" />
+        </config-file>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <activity android:name="cn.x1ongzhu.qrCodeScanner.ScanActivity" />
+        </config-file>
+        <source-file src="src/android/qrCodeScanner.java" target-dir="src/cn/x1ongzhu/qrCodeScanner" />
+        <source-file src="src/android/ScanActivity.java" target-dir="src/cn/x1ongzhu/qrCodeScanner" />
+        <source-file src="src/android/res/layout/activity_scan.xml" target-dir="res/layout" />
+        <source-file src="src/android/res/drawable/ic_flash.xml" target-dir="res/drawable" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_shortcut_flash_off.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/ic_shortcut_flash_on.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xhdpi/prev.png" target-dir="res/drawable-xhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_shortcut_flash_off.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/ic_shortcut_flash_on.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxhdpi/prev.png" target-dir="res/drawable-xxhdpi" />
+        <source-file src="src/android/res/drawable-xxxhdpi/ic_shortcut_flash_off.png" target-dir="res/drawable-xxxhdpi" />
+        <source-file src="src/android/res/drawable-xxxhdpi/ic_shortcut_flash_on.png" target-dir="res/drawable-xxxhdpi" />
+        <framework src="com.google.zxing:core:3.3.0" />
+        <framework src="cn.bingoogolapple:bga-qrcodecore:1.1.9@aar" />
+        <framework src="cn.bingoogolapple:bga-zxing:1.1.9@aar" />
+    </platform>
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <feature name="qrCodeScanner">
+                <param name="ios-package" value="qrCodeScanner" />
+            </feature>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>需要相机权限</string>
+        </config-file>
+        <source-file src="src/ios/qrCodeScanner.m" />
+        <source-file src="src/ios/ScanViewController.h" />
+        <source-file src="src/ios/ScanViewController.m" />
+        <resource-file src="src/ios/qrCodeScanner.bundle"/>
+    </platform>
+</plugin>

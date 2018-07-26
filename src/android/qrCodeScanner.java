@@ -1,32 +1,44 @@
-package cordova-plugin-qrcode-scanner;
+package cn.x1ongzhu.qrCodeScanner;
 
-import org.apache.cordova.CordovaPlugin;
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.text.TextUtils;
+
 import org.apache.cordova.CallbackContext;
-
-import org.json.JSONArray;
+import org.apache.cordova.CordovaArgs;
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
- * This class echoes a string called from JavaScript.
+ * Created by xiongzhu on 2017/12/14.
  */
+
 public class qrCodeScanner extends CordovaPlugin {
+    private static final int REQUEST_SCAN = 1;
+    private CallbackContext callbackContext;
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("coolMethod")) {
-            String message = args.getString(0);
-            this.coolMethod(message, callbackContext);
-            return true;
+    public boolean execute(String action, CordovaArgs args, final CallbackContext callbackContext) throws JSONException {
+        this.callbackContext = callbackContext;
+        if (action.equals("start")) {
+            if (cordova.hasPermission(Manifest.permission.CAMERA)) {
+                this.cordova.startActivityForResult(this, new Intent(this.cordova.getActivity(), ScanActivity.class), REQUEST_SCAN);
+            } else {
+                cordova.requestPermission(this, 1, Manifest.permission.CAMERA);
+            }
         }
-        return false;
+        return true;
     }
 
-    private void coolMethod(String message, CallbackContext callbackContext) {
-        if (message != null && message.length() > 0) {
-            callbackContext.success(message);
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if (resultCode == Activity.RESULT_OK) {
+            String result = intent.getStringExtra("result");
+            if (!TextUtils.isEmpty(result)) {
+                callbackContext.success(result);
+            }
         }
     }
 }

@@ -1,5 +1,18 @@
-var exec = require('cordova/exec');
+var exec = require("cordova/exec");
 
-exports.coolMethod = function (arg0, success, error) {
-    exec(success, error, 'qrCodeScanner', 'coolMethod', [arg0]);
+exports.start = function(success, options) {
+    exec(
+        function(message) {
+            if (typeof success === "function") {
+                success(message);
+            }
+            console.log(message);
+        },
+        function(message) {
+            console.log(message);
+        },
+        "qrCodeScanner",
+        "start",
+        [options]
+    );
 };

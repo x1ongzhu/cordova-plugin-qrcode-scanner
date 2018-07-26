@@ -1,0 +1,21 @@
+{
+    "name": "cordova-plugin-qrcode-scanner",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/x1ongzhu/cordova-plugin-qrcode-scanner.git"
+    },
+    "keywords": ["cordova"],
+    "author": "x1ongzhu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/x1ongzhu/cordova-plugin-qrcode-scanner/issues"
+    },
+    "homepage": "https://github.com/x1ongzhu/cordova-plugin-qrcode-scanner#readme",
+    "cordova": {
+        "id": "cordova-plugin-wechat",
+        "platforms": ["android", "ios"]
+    }
+}
